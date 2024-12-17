@@ -14,18 +14,21 @@ use Illuminate\Support\Facades\Validator;
 class CustomerAuthController extends Controller
 {
     
-     public function login(Request $request)
+    public function login(Request $request)
     {
-          $validator = Validator::make($request->all(), [
-            'phone' => 'required',
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required_without:email|regex:/^(\+?[\d]{1,4}[\s\-]?)?[\d]{1,10}$/',
+            'email' => 'required_without:phone|email',
             'password' => 'required|min:6'
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => Helpers::error_processor($validator)], 403);
         }
+
+        $account = $request->phone ? 'phone' : 'email';
         $data = [
-            'phone' => $request->phone,
+            $account => $request->phone ? $request->phone : $request->email,
             'password' => $request->password
         ];
         
@@ -41,7 +44,11 @@ class CustomerAuthController extends Controller
                 ], 403);
             }
           
-            return response()->json(['token' => $token, 'is_phone_verified'=>auth()->user()->is_phone_verified], 200);
+            return response()->json([
+                'success' => 200,
+                'token' => $token, 
+                'is_phone_verified'=>auth()->user()->is_phone_verified
+            ], 200);
         } else {
             $errors = [];
             array_push($errors, ['code' => 'auth-001', 'message' => 'Unauthorized.']);
@@ -51,7 +58,7 @@ class CustomerAuthController extends Controller
         }
     }
     
-        public function register(Request $request)
+    public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'f_name' => 'required',
@@ -78,6 +85,11 @@ class CustomerAuthController extends Controller
         $token = $user->createToken('RestaurantCustomerAuth')->accessToken;
 
        
-        return response()->json(['token' => $token,'is_phone_verified' => 0, 'phone_verify_end_url'=>"api/v1/auth/verify-phone" ], 200);
+        return response()->json([
+            'success' => 200 ,
+            'token' => $token,
+            'is_phone_verified' => 0, 
+            'phone_verify_end_url'=>"api/v1/auth/verify-phone"
+        ], 200);
     }
 }

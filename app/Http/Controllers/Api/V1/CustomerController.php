@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller{
     
-     public function address_list(Request $request)
+    public function address_list(Request $request)
     {
         return response()->json(CustomerAddress::where('user_id', $request->user()->id)->latest()->get(), 200);
     }
@@ -24,7 +24,8 @@ class CustomerController extends Controller{
         //unset($data['orders']);
         return response()->json($data, 200);
     }
-        public function add_new_address(Request $request)
+
+    public function add_new_address(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'contact_person_name' => 'required',
@@ -49,9 +50,12 @@ class CustomerController extends Controller{
             'updated_at' => now()
         ];
         DB::table('customer_addresses')->insert($address);
-        return response()->json(['message' => trans('messages.successfully_added')], 200);
+        return response()->json([
+            'message' => trans('messages.successfully_added')
+        ], 200);
     }
-        public function update_address(Request $request,$id)
+
+    public function update_address(Request $request,$id)
     {
         $validator = Validator::make($request->all(), [
             'contact_person_name' => 'required',
@@ -83,11 +87,14 @@ class CustomerController extends Controller{
             'address' => $request->address,
             'longitude' => $request->longitude,
             'latitude' => $request->latitude,
-            'zone_id' => 1,
+            // 'zone_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ];
         DB::table('customer_addresses')->where('user_id', $request->user()->id)->update($address);
-        return response()->json(['message' => trans('messages.updated_successfully'),'zone_id'=>$zone->id], 200);
+        return response()->json([
+            'message' => trans('messages.updated_successfully'),
+            // 'zone_id'=>$zone->id
+        ], 200);
     }
 }

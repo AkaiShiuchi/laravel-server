@@ -13,7 +13,7 @@ use Grimzy\LaravelMysqlSpatial\Types\Point;
 
 class ConfigController extends Controller
 {
-        public function geocode_api(Request $request)
+    public function geocode_api(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'lat' => 'required',
@@ -27,7 +27,8 @@ class ConfigController extends Controller
         $response = Http::get('https://maps.googleapis.com/maps/api/geocode/json?latlng='.$request->lat.','.$request->lng.'&key='."Your key the one you put in your flutter");
         return $response->json();
     }
-        public function get_zone(Request $request)
+
+    public function get_zone(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'lat' => 'required',
