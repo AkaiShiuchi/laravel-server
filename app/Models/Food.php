@@ -8,6 +8,18 @@ class Food extends Model
     use DefaultDatetimeFormat;
     //table name
     protected $table = 'foods';
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = [
+        'food_id',
+        'name',
+        'description',
+        'price',
+        'stars',
+        'people',
+        'location',
+    ];
+
+    public $timestamps = true;
     
     public function FoodType(){
         return $this->hasOne(FoodType::class, 'id', 'type_id');

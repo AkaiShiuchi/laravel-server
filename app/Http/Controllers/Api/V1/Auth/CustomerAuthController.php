@@ -47,6 +47,7 @@ class CustomerAuthController extends Controller
             return response()->json([
                 'success' => 200,
                 'token' => $token, 
+                'id' => auth()->user()->id,
                 'is_phone_verified'=>auth()->user()->is_phone_verified
             ], 200);
         } else {
@@ -88,6 +89,7 @@ class CustomerAuthController extends Controller
         return response()->json([
             'success' => 200 ,
             'token' => $token,
+            'user_id' => $user->id,
             'is_phone_verified' => 0, 
             'phone_verify_end_url'=>"api/v1/auth/verify-phone"
         ], 200);
