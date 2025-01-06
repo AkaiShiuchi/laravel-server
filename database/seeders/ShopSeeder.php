@@ -21,12 +21,14 @@ class ShopSeeder extends Seeder
 
         for ($i = 0; $i < 100; $i++) {
             $randomFoodIds = $faker->randomElements($foodIds, $faker->numberBetween(1, 11));
+            $imageUrl = 'https://picsum.photos/640/480?random=' . time();
 
             $data[] = [
                 'food_id' => json_encode(array_map(function($id) {
                     return ['food_id' => $id];
                 }, $randomFoodIds)),
                 'shop_name' => $faker->company,
+                'image' => $imageUrl,
                 'delivery' => rand(0, 1),
                 'time_ship' => rand(10, 40),
                 'evaluate' => rand(1, 5)
