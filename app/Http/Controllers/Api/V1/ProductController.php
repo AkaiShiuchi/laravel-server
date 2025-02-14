@@ -10,13 +10,14 @@ class ProductController extends Controller
         
     public function get_popular_products(Request $request){
   
-        $list = Food::where('type_id', 2)->take(10)->get();
+        $list = Food::get();
         
         foreach ($list as $item){
             $item['description']=strip_tags($item['description']);
             $item['description']=$Content = preg_replace("/&#?[a-z0-9]+;/i"," ",$item['description']); 
             unset($item['selected_people']);
             unset($item['people']);
+            unset($item['type_id']);
         }
         
         $data =  [

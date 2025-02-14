@@ -18,11 +18,12 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'f_name', 
-        'phone', 
-        'email', 
+        'name',
+        'email',
+        'phone',
         'password',
-        'status',
+        'image_url',
+        'bio',
     ];
 
     protected $table = 'users';
@@ -45,4 +46,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function checkUserExist($email){
+        return self::where('email', $email)->first();
+    }
 }

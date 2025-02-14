@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'Api\V1'], function () {
     
     Route::group(['prefix' => 'products'], function () {
-        Route::get('popular', 'ProductController@get_popular_products');
+        Route::get('get_list_foods', 'ProductController@get_popular_products');
         Route::get('recommended', 'ProductController@get_recommended_products');
         Route::get('test', 'ProductController@test_get_recommended_products');
     }); 
@@ -47,5 +47,14 @@ Route::group(['namespace' => 'Api\V1'], function () {
 
     Route::group(['prefix' => 'shop'], function () {
         Route::get('/get-shop-list', 'ShopController@getShopList')->name('v1.shop.get_shop_list');
+    });
+
+    Route::group(['prefix' => 'coupon'], function () {
+        Route::get('/get_list_coupon', 'CouponController@getListCoupon')->name('v1.coupon.get_list_coupon');
+    });
+
+    Route::group(['prefix' => 'users'], function () {
+        Route::post('/register', 'UserController@register')->name('users.register');
+        Route::post('/login', 'UserController@login')->name('users.login');
     });
 });

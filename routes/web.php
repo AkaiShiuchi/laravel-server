@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('login', 'LoginController@login')->name('login');
+Route::post('handle', 'LoginController@handle')->name('handle');
+
+Route::group(['prefix' => 'management'], function () {
+    Route::get('user', 'UserController@index')->name('management.index');
 });
