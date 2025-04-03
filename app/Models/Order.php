@@ -16,7 +16,7 @@ class Order extends Model
         'payment_method',
         'order_date',
         'status',
-        'address_id',
+        'user_address_id',
         'user_id',
     ];
     public $timestamps = true;
@@ -28,6 +28,6 @@ class Order extends Model
 
     public function addresses()
     {
-        return $this->belongsTo(UserAddress::class, 'address_id', 'id');
+        return $this->belongsTo(UserAddress::class, 'user_address_id', 'id');
     }
 }

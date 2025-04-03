@@ -19,6 +19,7 @@ class Restaurant extends Model
         'delivery_time',
         'lat',
         'long',
+        'image'
     ];
     public $timestamps = true;
 }

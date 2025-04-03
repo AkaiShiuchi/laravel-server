@@ -21,7 +21,7 @@ class CreateProductTable extends Migration
             $table->float('delivery_cost');
             $table->integer('cooking_time');
             $table->string('ingredients')->nullable();;
-            $table->integer('offer')->nullable();;
+            $table->string('offer')->nullable();;
             $table->integer('serve_on')->nullable();;
             $table->unsignedBigInteger('restaurant_id');
             $table->unsignedBigInteger('category_id');

@@ -15,7 +15,7 @@ class CreateOrderTable extends Migration
     {
         Schema::create('order', function (Blueprint $table) {
             $table->id();
-            $table->string('delivery_method');
+            $table->string('delivery_method')->nullable();
             $table->string('payment_method');
             $table->string('delivery_vehicle');
             $table->dateTime('order_date');

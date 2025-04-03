@@ -15,4 +15,9 @@ class OrderProduct extends Model
         'amount',
     ];
     public $timestamps = true;
+
+    public function sku_products()
+    {
+        return $this->belongsTo(ProductClasstification::class, 'product_sku', 'sku');
+    }
 }

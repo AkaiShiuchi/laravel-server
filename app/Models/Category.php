@@ -11,13 +11,8 @@ class Category extends Model
 
     protected $table = 'category';
     protected $fillable = [
-        'user_id',
-        'name'
+        'name',
+        'description'
     ];
     public $timestamps = true;
-
-    public function users()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
 }

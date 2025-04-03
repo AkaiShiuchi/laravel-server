@@ -21,6 +21,7 @@ class Product extends Model
         'serve_on',
         'category_id',
         'restaurant_id',
+        'image',
     ];
     public $timestamps = true;
 

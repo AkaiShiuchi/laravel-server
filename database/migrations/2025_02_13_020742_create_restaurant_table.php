@@ -16,7 +16,8 @@ class CreateRestaurantTable extends Migration
         Schema::create('restaurant', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('bio')->nullable();;
+            $table->string('bio')->nullable();
+            $table->string('image')->nullable();
             $table->float('rating');
             $table->float('delivery_cost');
             $table->string('delivery_vehicle');

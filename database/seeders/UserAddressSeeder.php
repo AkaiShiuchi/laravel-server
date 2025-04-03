@@ -18,9 +18,9 @@ class UserAddressSeeder extends Seeder
     {
         $faker = Faker::create();
         $data = [];
-        $users = User::get();
 
-        foreach ($users as $user) {
+        for ($i = 0; $i < 30; $i++) {
+            $user = User::inRandomOrder()->first();
             $date = $faker->dateTimeThisYear;
             $endDate = $faker->dateTimeInInterval($date, '+2 month');
             $cityData = [
@@ -122,18 +122,24 @@ class UserAddressSeeder extends Seeder
             $randomDistrict = $cityData[$randomCity]['districts'][array_rand($cityData[$randomCity]['districts'])];
             $randomAddressDetail = $cityData[$randomCity]['address_details'][array_rand($cityData[$randomCity]['address_details'])];
 
-            $data[] = [
-                "name" => $user->name,
-                // "lable_as" => ,
-                "coutry" => 'Việt Nam',
-                "city" => $randomCity,
-                "district" => $randomDistrict,
-                "address_detail" => $randomAddressDetail,
-                // "lat" => ,
-                // "long" => ,
-                "phone" => $user->phone,
-                "user_id" => $user->id,
-            ];
+            $lat = $faker->latitude($min = -90, $max = 90);
+            $long = $faker->longitude($min = -180, $max = 180);
+            $lable = ['Office', 'Home'];
+            $userAddress = UserAddress::where('user_id', $user->id)->first();
+            if (!$userAddress) {
+                $data[] = [
+                    "name" => $user->name,
+                    "lable_as" => $lable[array_rand($lable)],
+                    "country" => 'Việt Nam',
+                    "city" => $randomCity,
+                    "district" => $randomDistrict,
+                    "address_detail" => $randomAddressDetail,
+                    "lat" => '20.670335983347613',
+                    "long" => '105.77808140804346',
+                    "phone" => $user->phone,
+                    "user_id" => $user->id,
+                ];
+            }
 
             if ($i % 10 == 0) {
                 UserAddress::insert($data);
